@@ -1,5 +1,6 @@
 import pyray
 import pathlib
+from classFolder.TypeLayer import TypeLayer
 
 # Layer, mimic a layer (sprite) with his hown movement.
 class Layer():

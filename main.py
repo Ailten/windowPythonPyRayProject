@@ -1,6 +1,7 @@
 import pyray # python3 -m pip install raylib==5.5.0.3
 import asyncio # to call async func from a sync.
 from classFolder.Layer import Layer
+from classFolder.TypeLayer import TypeLayer
 
 # Doc : https://electronstudio.github.io/raylib-python-cffi/pyray.html#pyray.Color
 
@@ -17,12 +18,12 @@ async def main():
     backgroundColor = pyray.Color(0, 0, 255, 255)
 
     layers = [
-        Layer("axoHat2", isActive=False),
+        Layer("axoHat2", isActive=False, typeLayer=[TypeLayer.HAT, TypeLayer.AXO_HAT]),
         Layer("couetteLeft"),
         Layer("couetteRight"),
         Layer("couetteUpLeft"),
-        Layer("tronc"),
-        Layer("maidTronc", isActive=False),
+        Layer("tronc", typeLayer=[TypeLayer.TRONC, TypeLayer.DEFAULT_TRONC]),
+        Layer("maidTronc", isActive=False, typeLayer=[TypeLayer.TRONC, TypeLayer.MAID]),
         Layer("face"),
         Layer("couetteUpRight"),
         Layer("mouth"),
@@ -30,10 +31,10 @@ async def main():
         Layer("mouthOpen"),
         Layer("eyes"),
         Layer("eyesClose"),
-        Layer("maidHat", isActive=False),
+        Layer("maidHat", isActive=False, typeLayer=[TypeLayer.HAT, TypeLayer.MAID]),
         Layer("hairTop"),
         Layer("eyesBorder"),
-        Layer("axoHat1", isActive=False)
+        Layer("axoHat1", isActive=False, typeLayer=[TypeLayer.HAT, TypeLayer.AXO_HAT])
     ]
 
     # loop update.
