@@ -6,6 +6,11 @@ import asyncio # to call async func from a sync.
 
 async def main():
 
+    # TODO : 
+    # make background color transparenty (or full BLUE).
+    # resize window at a right size for pngtuber sprites.
+    # make class Layers (like Entity).
+
     # build a window.
     pyray.init_window(500, 500, "Test")
 
