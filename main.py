@@ -9,8 +9,8 @@ from classFolder.Layer import Layer
 async def main():
 
     # TODO : 
-    # resize window at a right size for pngtuber sprites.
-    # make class Layers (like Entity).
+    # send origin to all layers need a specify one.
+    # send typeLayer.
 
     # build a window.
     pyray.init_window(Layer.defaultSizeX, Layer.defaultSizeY, "pngtuberAilt_V3")
