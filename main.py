@@ -10,8 +10,12 @@ from classFolder.TypeLayer import TypeLayer
 async def main():
 
     # TODO : 
-    # send origin to all layers need a specify one.
-    # set rotation
+    # set rotation (and origine).
+    # set translation.
+    # set animation blink.
+    # set animation talk.
+    # time increament and update wait properly.
+
 
     # build a window.
     pyray.init_window(Layer.defaultSizeX, Layer.defaultSizeY, "pngtuberAilt_V3")
