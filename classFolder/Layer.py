@@ -48,7 +48,7 @@ class Layer():
             self.texture,
             Layer.defaultSource,
             rectDest,
-            Layer.origine,
+            Layer.defaultOrigine,
             rotation,
             pyray.WHITE
         )

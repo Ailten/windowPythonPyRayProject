@@ -14,12 +14,15 @@ async def main():
     # set translation.
     # set animation blink.
     # set animation talk.
-    # time increament and update wait properly.
 
 
     # build a window.
     pyray.init_window(Layer.defaultSizeX, Layer.defaultSizeY, "pngtuberAilt_V3")
     backgroundColor = pyray.Color(0, 0, 255, 255)
+    fps = 30
+    pyray.set_target_fps(fps)
+    timeMilisec = 0
+    timeIncrement = 1000/fps
 
     layers = [
         Layer("axoHat2", 
@@ -58,12 +61,12 @@ async def main():
         
         # draw layers.
         for l in layers:
-            l.draw()
+            l.draw(timeMilisec)
 
         pyray.end_drawing()
 
-        # wait update (frame rate).
-        await asyncio.sleep(0)
+        # increase time.
+        timeMilisec += timeIncrement
 
 
     # free layers.
