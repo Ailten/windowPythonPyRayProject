@@ -11,6 +11,7 @@ async def main():
 
     # TODO : 
     # send origin to all layers need a specify one.
+    # set rotation
 
     # build a window.
     pyray.init_window(Layer.defaultSizeX, Layer.defaultSizeY, "pngtuberAilt_V3")
