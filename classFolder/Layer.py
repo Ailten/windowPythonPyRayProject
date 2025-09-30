@@ -41,6 +41,8 @@ class Layer():
         )
         rotation = 0
 
+        print(self.texture)
+
         # Doc : https://electronstudio.github.io/raylib-python-cffi/pyray.html#pyray.draw_texture_pro
         pyray.draw_texture_pro(
             texture=self.texture,
