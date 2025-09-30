@@ -1,8 +1,8 @@
-from enum import Enum
+from enum import Enum, auto
 
 class TypeLayer(Enum):
-    TRONC
-    DEFAULT_TRONC
-    HAT
-    AXO_HAT
-    MAID
+    TRONC = auto()
+    DEFAULT_TRONC = auto()
+    HAT = auto()
+    AXO_HAT = auto()
+    MAID = auto()
