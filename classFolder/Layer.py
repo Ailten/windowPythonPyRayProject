@@ -13,7 +13,7 @@ class Layer():
     defaultOrigine = pyray.Vector2(0, 0)
 
     # constructor.
-    def __init__(self, nameFile: str, isActive=True, typeLayer=None):
+    def __init__(self, nameFile: str, isActive=True, typeLayer=None, origine=None, update=None):
         
         # load texture.
         pathFilePng = f"{Layer.pathMainFolder}/spryte/{nameFile}.png"
@@ -22,34 +22,39 @@ class Layer():
         # params.
         self.isActive = isActive
         self.typeLayer = typeLayer
+        self.origine = origine or defaultSource
 
         # params eval during update.
-        self.isActiveDuringAnime = True
+        self.pos = pyray.Vector2(0, 0)
+        self.rotate = 0
+        self.update = update or (lambda t: True)
 
 
     # function to draw the layer.
     def draw(self, timeMilisec: int):
 
+        # not draw if disable.
         if not self.isActive:
             return
 
-        #self.update(timeMilisec)
+        # not draw if disable by animation.
+        if not self.update(timeMilisec):
+            return
 
         rectDest = pyray.Rectangle(
-            0, 
-            0, 
+            self.pos.x - self.origine.x, 
+            self.pos.y - self.origine.y, 
             Layer.defaultSizeX, 
             Layer.defaultSizeY
         )
-        rotation = 0
 
         # Doc : https://electronstudio.github.io/raylib-python-cffi/pyray.html#pyray.draw_texture_pro
         pyray.draw_texture_pro(
             self.texture,
             Layer.defaultSource,
             rectDest,
-            Layer.defaultOrigine,
-            rotation,
+            origine,
+            self.rotate,
             pyray.WHITE
         )
     

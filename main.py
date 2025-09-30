@@ -10,10 +10,13 @@ from classFolder.TypeLayer import TypeLayer
 async def main():
 
     # TODO : 
-    # set rotation (and origine).
-    # set translation.
-    # set animation blink.
-    # set animation talk.
+
+    # set rotation (and origine). (send origin for eatch who need)
+    # set translation. (lambda)
+
+    # set animation blink. (lambda)
+
+    # set animation talk. (set a proper class static for get decibel of microphone)
 
 
     # build a window.
@@ -63,10 +66,10 @@ async def main():
         for l in layers:
             l.draw(timeMilisec)
 
-        pyray.end_drawing()
-
         # increase time.
         timeMilisec += timeIncrement
+
+        pyray.end_drawing()
 
 
     # free layers.
