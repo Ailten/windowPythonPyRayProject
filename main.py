@@ -11,11 +11,6 @@ async def main():
 
     # TODO : 
 
-    # set rotation (and origine). (send origin for eatch who need)
-    # set translation. (lambda)
-
-    # set animation blink. (lambda)
-
     # set animation talk. (set a proper class static for get decibel of microphone)
 
 
@@ -30,30 +25,48 @@ async def main():
     layers = [
         Layer("axoHat2", 
             isActive=False, 
-            typeLayer=[TypeLayer.HAT, TypeLayer.AXO_HAT]),
-        Layer("couetteLeft"),
-        Layer("couetteRight"),
-        Layer("couetteUpLeft"),
+            typeLayer=[TypeLayer.HAT, TypeLayer.AXO_HAT],
+            update=Layer.faceUpdate),
+        Layer("couetteLeft",
+            origine=pyray.Vector2(158, 488),
+            update=Layer.couetteUpdate),
+        Layer("couetteRight",
+            origine=pyray.Vector2(250, 480),
+            update=Layer.couetteUpdate),
+        Layer("couetteUpLeft",
+            origine=pyray.Vector2(147, 345),
+            update=Layer.couetteUpdate),
         Layer("tronc", 
             typeLayer=[TypeLayer.TRONC, TypeLayer.DEFAULT_TRONC]),
         Layer("maidTronc", 
             isActive=False, 
             typeLayer=[TypeLayer.TRONC, TypeLayer.MAID]),
-        Layer("face"),
-        Layer("couetteUpRight"),
-        Layer("mouth"),
-        Layer("mouthOpenMid"),
-        Layer("mouthOpen"),
-        Layer("eyes"),
-        Layer("eyesClose"),
+        Layer("face",
+            update=Layer.faceUpdate),
+        Layer("couetteUpRight",
+            origine=pyray.Vector2(270, 345),
+            update=Layer.couetteUpdate),
+        Layer("mouth",
+            update=Layer.faceUpdate),
+        Layer("mouthOpenMid",
+            update=Layer.faceUpdate),
+        Layer("mouthOpen",
+            update=Layer.faceUpdate),
+        Layer("eyes",
+            update=Layer.blinkUpdate),
+        Layer("eyesClose",
+            update=Layer.blinkUpdate),
         Layer("maidHat", 
             isActive=False, 
             typeLayer=[TypeLayer.HAT, TypeLayer.MAID]),
-        Layer("hairTop"),
-        Layer("eyesBorder"),
+        Layer("hairTop",
+            update=Layer.faceUpdate),
+        Layer("eyesBorder",
+            update=Layer.blinkUpdate),
         Layer("axoHat1", 
             isActive=False, 
-            typeLayer=[TypeLayer.HAT, TypeLayer.AXO_HAT])
+            typeLayer=[TypeLayer.HAT, TypeLayer.AXO_HAT],
+            update=Layer.faceUpdate)
     ]
 
     # loop update.
