@@ -2,6 +2,7 @@ import pyray
 import pathlib
 from classFolder.TypeLayer import TypeLayer
 import math
+from classFolder.Microphone import Microphone
 
 # Layer, mimic a layer (sprite) with his hown movement.
 class Layer():
@@ -104,5 +105,18 @@ class Layer():
         isLayerBlink = self.name.startswith("eyesClose")
         return isBlinkTime == isLayerBlink
 
+    # use for mouth.
+    @staticmethod
+    def mouthUpdate(self, timeMilisec):
+        Layer.faceUpdate(self, timeMilisec)
+        decibel = Microphone.decibel
+        minTalkValue = 0
+        maxTalkValue = 12
+        if decibel <= minTalkValue and self.name.startswith("mouth"):
+            return True
+        if decibel > minTalkValue and decibel <= maxTalkValue and self.name.startswith("mouthOpenMid"):
+            return True
+        if decibel > maxTalkValue and self.name.startswith("mouthOpen"):
+            return True
+        return False
 
-    

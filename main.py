@@ -2,6 +2,7 @@ import pyray # python3 -m pip install raylib==5.5.0.3
 import asyncio # to call async func from a sync.
 from classFolder.Layer import Layer
 from classFolder.TypeLayer import TypeLayer
+from classFolder.Microphone import Microphone
 
 # Doc : https://electronstudio.github.io/raylib-python-cffi/pyray.html#pyray.Color
 
@@ -11,7 +12,8 @@ async def main():
 
     # TODO : 
 
-    # set animation talk. (set a proper class static for get decibel of microphone)
+    # debug decibel get (function static updateMicrophone is not call, maybe lock in the main async loop).
+    # debug amount of decibel min and max on animation mouth.
 
 
     # build a window.
@@ -47,11 +49,11 @@ async def main():
             origine=pyray.Vector2(270, 345),
             update=Layer.couetteUpdate),
         Layer("mouth",
-            update=Layer.faceUpdate),
+            update=Layer.mouthUpdate),
         Layer("mouthOpenMid",
-            update=Layer.faceUpdate),
+            update=Layer.mouthUpdate),
         Layer("mouthOpen",
-            update=Layer.faceUpdate),
+            update=Layer.mouthUpdate),
         Layer("eyes",
             update=Layer.blinkUpdate),
         Layer("eyesClose",
@@ -74,6 +76,9 @@ async def main():
 
         pyray.begin_drawing()
         pyray.clear_background(backgroundColor)
+
+        # get decibel from microphone.
+        Microphone.updateDecibel()
         
         # draw layers.
         for l in layers:
@@ -81,6 +86,8 @@ async def main():
 
         # increase time.
         timeMilisec += timeIncrement
+
+        #print(Microphone.decibel)
 
         pyray.end_drawing()
 
