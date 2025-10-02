@@ -22,7 +22,7 @@ async def main():
     fps = 30
     pyray.set_target_fps(fps)
     timeMilisec = 0
-    timeIncrement = 1000/fps
+    timeIncrement = int(1000/fps)
 
     layers = [
         Layer("axoHat2", 
@@ -50,8 +50,6 @@ async def main():
             update=Layer.couetteUpdate),
         Layer("mouth",
             update=Layer.mouthUpdate),
-        Layer("mouthOpenMid",
-            update=Layer.mouthUpdate),
         Layer("mouthOpen",
             update=Layer.mouthUpdate),
         Layer("eyes",
@@ -78,16 +76,24 @@ async def main():
         pyray.clear_background(backgroundColor)
 
         # get decibel from microphone.
-        Microphone.updateDecibel()
+        asyncio.create_task(Microphone.updateDecibel())
         
+        # get decibel (fix for all the loop update).
+        decibel = Microphone.decibel
+        #print(f"Db : {decibel}")
+
         # draw layers.
         for l in layers:
+            if not l.isActive:
+                continue
+            if not l.update(l, timeMilisec, decibel):
+                continue
             l.draw(timeMilisec)
 
         # increase time.
         timeMilisec += timeIncrement
 
-        #print(Microphone.decibel)
+        await asyncio.sleep(0.01)
 
         pyray.end_drawing()
 
@@ -100,5 +106,7 @@ async def main():
     pyray.close_window()
 
 
+# ---------->
 
+# call main.
 asyncio.run(main())

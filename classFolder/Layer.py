@@ -30,19 +30,11 @@ class Layer():
         # params eval during update.
         self.pos = pyray.Vector2(0, 0)
         self.rotate = 0
-        self.update = update or (lambda s, t: True)
+        self.update = update or (lambda s, t, d: True)
 
 
     # function to draw the layer.
     def draw(self, timeMilisec: int):
-
-        # not draw if disable.
-        if not self.isActive:
-            return
-
-        # not draw if disable by animation.
-        if not self.update(self, timeMilisec):
-            return
 
         rectDest = pyray.Rectangle(
             self.pos.x + self.origine.x, 
@@ -71,13 +63,13 @@ class Layer():
     # ----------> function update for animation.
 
     @staticmethod
-    def getCosTime(timeMilisec):
+    def getCosTime(timeMilisec: int):
         timeSpeeded = timeMilisec * 0.0015
         return math.cos(timeSpeeded)
 
     # use for movement head (and all link to head).
     @staticmethod
-    def faceUpdate(self, timeMilisec):
+    def faceUpdate(self, timeMilisec: int, decibel: float):
         i = Layer.getCosTime(timeMilisec)
         rangePosY = 8
         BaseRangePos = 10
@@ -87,8 +79,8 @@ class Layer():
 
     # use for movement couette.
     @staticmethod
-    def couetteUpdate(self, timeMilisec):
-        Layer.faceUpdate(self, timeMilisec)
+    def couetteUpdate(self, timeMilisec: int, decibel: float):
+        Layer.faceUpdate(self, timeMilisec, decibel)
         i = Layer.getCosTime(timeMilisec)
         clockRotate = (1) if self.name.endswith("Left") else (-1)
         rangeRotate = (10) if self.name.startswith("couetteUp") else (18)
@@ -97,8 +89,8 @@ class Layer():
 
     # use for blink.
     @staticmethod
-    def blinkUpdate(self, timeMilisec):
-        Layer.faceUpdate(self, timeMilisec)
+    def blinkUpdate(self, timeMilisec: int, decibel: float):
+        Layer.faceUpdate(self, timeMilisec, decibel)
         i = timeMilisec * 0.001
         i = (i / 2.8) %1.0
         isBlinkTime = i < 0.08
@@ -107,16 +99,14 @@ class Layer():
 
     # use for mouth.
     @staticmethod
-    def mouthUpdate(self, timeMilisec):
-        Layer.faceUpdate(self, timeMilisec)
-        decibel = Microphone.decibel
-        minTalkValue = 0
-        maxTalkValue = 12
-        if decibel <= minTalkValue and self.name.startswith("mouth"):
+    def mouthUpdate(self, timeMilisec: int, decibel: float):
+        Layer.faceUpdate(self, timeMilisec, decibel)
+
+        isTalk = decibel > Microphone.tresholdTalk
+        if (not isTalk) and (self.name == "mouth"):
             return True
-        if decibel > minTalkValue and decibel <= maxTalkValue and self.name.startswith("mouthOpenMid"):
+        if (isTalk) and (self.name == "mouthOpen"):
             return True
-        if decibel > maxTalkValue and self.name.startswith("mouthOpen"):
-            return True
+
         return False
 
