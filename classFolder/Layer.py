@@ -14,6 +14,8 @@ class Layer():
     defaultSource = pyray.Rectangle(0, 0, defaultSizeX, defaultSizeY)
     defaultOrigine = pyray.Vector2(0, 0)
 
+    layers = []
+
     # constructor.
     def __init__(self, nameFile: str, isActive=True, typeLayer=None, origine=None, update=None):
         

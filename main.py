@@ -12,9 +12,6 @@ async def main():
 
     # TODO : 
 
-    # debug decibel get (function static updateMicrophone is not call, maybe lock in the main async loop).
-    # debug amount of decibel min and max on animation mouth.
-
 
     # build a window.
     pyray.init_window(Layer.defaultSizeX, Layer.defaultSizeY, "pngtuberAilt_V3")
@@ -24,7 +21,7 @@ async def main():
     timeMilisec = 0
     timeIncrement = int(1000/fps)
 
-    layers = [
+    Layer.layers = [
         Layer("axoHat2", 
             isActive=False, 
             typeLayer=[TypeLayer.HAT, TypeLayer.AXO_HAT],
@@ -83,7 +80,7 @@ async def main():
         #print(f"Db : {decibel}")
 
         # draw layers.
-        for l in layers:
+        for l in Layer.layers:
             if not l.isActive:
                 continue
             if not l.update(l, timeMilisec, decibel):
@@ -99,7 +96,7 @@ async def main():
 
 
     # free layers.
-    for l in layers:
+    for l in Layer.layers:
         l.destroy()
 
     # close window.
