@@ -12,7 +12,8 @@ class Microphone():
 
     decibel = 0 # output decibel.
 
-    tresholdTalk = 60 # ref decibel used for unable mouth when talk.
+    tresholdTalk = 50 # ref decibel used for unable mouth when talk.
+    tresholdTalkMid = 30 # ref decibel used for mouth mid open.
 
 
     @staticmethod
@@ -35,17 +36,16 @@ class Microphone():
         currentDecibel = 0
         if rms > 0:
             currentDecibel = int(20 * math.log10(rms))
-            currentDecibel += 100
-            #print(f"cd : {currentDecibel}")
-            # current decibel is between 30 and 50, 100 (with mic).
 
-        # apply decibel current, with lissage.
-        Microphone.decibel = int(Microphone.decibel * 0.85)
-        Microphone.decibel -= 35
-        Microphone.decibel += currentDecibel
-        if Microphone.decibel < 30:
-            Microphone.decibel = 30
-        elif Microphone.decibel > 100:
-            Microphone.decibel = 100
+            currentDecibel += 55
+            currentDecibel *= 1.8518
+            currentDecibel = max(0.0001, min(currentDecibel, 99.9999))
+
+        # acumulation.
+        Microphone.decibel *= 0.35
+        Microphone.decibel += (currentDecibel * 0.75)
+        Microphone.decibel = max(0.0001, min(Microphone.decibel, 99.9999))
+        print(f"${currentDecibel} --- ${Microphone.decibel}")
+
 
 

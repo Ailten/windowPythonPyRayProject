@@ -105,9 +105,11 @@ class Layer():
         Layer.faceUpdate(self, timeMilisec, decibel)
 
         isTalk = decibel > Microphone.tresholdTalk
-        if (not isTalk) and (self.name == "mouth"):
+        if (decibel < Microphone.tresholdTalkMid) and (self.name == "mouth"):
             return True
-        if (isTalk) and (self.name == "mouthOpen"):
+        if (decibel >= Microphone.tresholdTalkMid) and (decibel < Microphone.tresholdTalk) and (self.name == "mouthOpenMid"):
+            return True
+        if (decibel >= Microphone.tresholdTalk) and (self.name == "mouthOpen"):
             return True
 
         return False

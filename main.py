@@ -49,6 +49,8 @@ async def main():
             update=Layer.mouthUpdate),
         Layer("mouthOpen",
             update=Layer.mouthUpdate),
+        Layer("mouthOpenMid",
+            update=Layer.mouthUpdate),
         Layer("eyes",
             update=Layer.blinkUpdate),
         Layer("eyesClose",
